@@ -29,10 +29,16 @@ ce_df = pd.read_csv(calendario,
                         parse_dates=False,
                         skip_blank_lines=True)
 ce_df.head()
+#%%
+precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
+precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
+precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
+precios_df.head()
 
 #%%
 ce_df['timestamp'] = pd.to_datetime(ce_df['timestamp'])
-ce_df.index = ce_df['timestamp'] ; ce_df = ce_df.drop("timestamp",axis=1)
+ce_df['timestamp'] = ce_df['timestamp'].dt.tz_localize('UTC')
+ce_df.index = ce_df['timestamp'] ; ce_df = ce_df.drop('timestamp',axis=1)
 ce_df.head()
 
 #%%
@@ -49,3 +55,6 @@ for i in range(len(ce_df)):
         
 Autos = Autos.T
 Control = Control.T
+
+#%%
+
