@@ -30,10 +30,10 @@ ce_df = pd.read_csv(calendario,
                         skip_blank_lines=True)
 ce_df.head()
 #%%
-precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
-precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
-precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
-precios_df.head()
+#precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
+#precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
+#precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
+#precios_df.head()
 
 #%%
 ce_df['timestamp'] = pd.to_datetime(ce_df['timestamp'])
