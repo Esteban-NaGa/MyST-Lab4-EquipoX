@@ -42,10 +42,10 @@ for i in range(len(ce_df)):
     f = ce_df.index[i]
     if ce_df['Name'][i] == "Retail Sales Control Group":
         f=ce_df.index[i]
-        Control[d] = ce_df.iloc[i]
+        Control[f] = ce_df.iloc[i]
     elif ce_df['Name'][i] == "Retail Sales ex Autos (MoM)":
-        f=cal_ec.index[i]
-        Autos[d] = cal_ec.iloc[i]
+        f=ce_df.index[i]
+        Autos[f] = ce_df.iloc[i]
         
 Autos = Autos.T
 Control = Control.T
