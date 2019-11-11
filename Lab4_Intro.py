@@ -9,10 +9,10 @@ Created on Thu Nov  7 08:16:17 2019
 import pandas as pd
 import numpy as np
 #%%
-#precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
-#calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
-precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
-calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
+precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
+calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
+#precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
+#calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
 
 #%%
 precios_df = pd.read_csv(precios,
@@ -30,10 +30,10 @@ ce_df = pd.read_csv(calendario,
                         skip_blank_lines=True)
 ce_df.head()
 #%%
-#precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
-#precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
-#precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
-#precios_df.head()
+precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
+precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
+precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
+precios_df.head()
 
 #%%
 ce_df['timestamp'] = pd.to_datetime(ce_df['timestamp'])
@@ -55,6 +55,8 @@ for i in range(len(ce_df)):
         
 Autos = Autos.T
 Control = Control.T
+df_indicadores = pd.concat([Autos, Control])
 
 #%%
+#Usar np.where para encontrar el match entre precios y calendario
 
