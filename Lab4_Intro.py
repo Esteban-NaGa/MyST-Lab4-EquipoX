@@ -8,11 +8,12 @@ Created on Thu Nov  7 08:16:17 2019
 
 import pandas as pd
 import numpy as np
+import datetime as datetime
 #%%
-precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
-calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
-#precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
-#calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
+#precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
+#calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
+precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
+calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
 
 #%%
 precios_df = pd.read_csv(precios,
@@ -59,4 +60,25 @@ df_indicadores = pd.concat([Autos, Control])
 
 #%%
 #Usar np.where para encontrar el match entre precios y calendario
+#%%
+#A 	actual >= previous & actual >= consensus & consensus >= previous
+#B 	actual >= previous & actual >= consensus & consensus < Precious
+#C 	actual >= previous & actual < consensus & consensus >= previous
+# D 	actual >= previous & actual < consensus & consensus < previous
+def escenario(d):
+    d['escenario']=d['actual']
+    for i in range(len(d['actual'])): 
+      if d['actual'][i]>= d['previous'][i] & d['Actual'][i]>= d['consensus'][i] & d['consensus'][i]>=d['previous'][i]:
+          d['escenario'][i]= 'A'
+      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]>= d['consensus'][i] & d['consensus'][i]<d['previous'][i]:
+          d['escenario'][i]= 'B'
+      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]< d['consensus'][i] & d['consensus'][i]>=d['previous'][i]:
+          d['escenario'][i]= 'C'
+      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]< d['consensus'][i]& d['consensus'][i] < d['previous'][i]:
+          d['escenario'][i]= 'D'
+          
+    return d
+#%%   
+  
+
 
