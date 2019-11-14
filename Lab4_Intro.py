@@ -33,13 +33,13 @@ ce_df.head()
 #%%
 precios_df['timestamp'] = pd.to_datetime(precios_df['timestamp'])
 precios_df['timestamp'] = precios_df['timestamp'].dt.tz_localize('UTC')
-precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
+#precios_df.index = precios_df['timestamp'] ; precios_df = precios_df.drop('timestamp',axis=1)
 precios_df.head()
 
 #%%
 ce_df['timestamp'] = pd.to_datetime(ce_df['timestamp'])
 ce_df['timestamp'] = ce_df['timestamp'].dt.tz_localize('UTC')
-ce_df.index = ce_df['timestamp'] ; ce_df = ce_df.drop('timestamp',axis=1)
+#ce_df.index = ce_df['timestamp'] ; ce_df = ce_df.drop('timestamp',axis=1)
 ce_df.head()
 
 #%%
@@ -78,7 +78,9 @@ def escenario(d):
           d['escenario'][i]= 'D'
           
     return d
-#%%   
-  
+
+#%% match de nuestros indicadores con el precio
+comparacion_autos = precios_df[precios_df.timestamp.isin(Autos.timestamp)]
+comparacion_control = precios_df[precios_df.timestamp.isin(Control.timestamp)]
 
 
