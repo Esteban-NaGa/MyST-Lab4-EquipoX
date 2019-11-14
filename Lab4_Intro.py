@@ -64,23 +64,33 @@ df_indicadores = pd.concat([Autos, Control])
 #A 	actual >= previous & actual >= consensus & consensus >= previous
 #B 	actual >= previous & actual >= consensus & consensus < Precious
 #C 	actual >= previous & actual < consensus & consensus >= previous
-# D 	actual >= previous & actual < consensus & consensus < previous
+#D 	actual >= previous & actual < consensus & consensus < previous
 def escenario(d):
-    d['escenario']=d['actual']
-    for i in range(len(d['actual'])): 
-      if d['actual'][i]>= d['previous'][i] & d['Actual'][i]>= d['consensus'][i] & d['consensus'][i]>=d['previous'][i]:
-          d['escenario'][i]= 'A'
-      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]>= d['consensus'][i] & d['consensus'][i]<d['previous'][i]:
-          d['escenario'][i]= 'B'
-      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]< d['consensus'][i] & d['consensus'][i]>=d['previous'][i]:
-          d['escenario'][i]= 'C'
-      elif d['actual'][i]>= d['previous'][i] & d['Actual'][i]< d['consensus'][i]& d['consensus'][i] < d['previous'][i]:
-          d['escenario'][i]= 'D'
+    d["actual"]=d["escenario"]
+    for i in range(len(d["actual"])): 
+      if d["actual"][i] >= d["consensus"][i] >= d["previous"][i]:
+          d["escenario"][i] = "A"
+      elif d["actual"][i] >= d["consensus"][i] < d["previous"][i]:
+          d["escenario"][i]= "B"
+      elif d["actual"][i] < d["consensus"][i] >= d["previous"][i]:
+          d["escenario"][i]= "C"
+      elif d["actual"][i] < d["consensus"][i] < d["previous"][i]:
+          d["escenario"][i]= "D"
           
     return d
-
+#%%
+Autos = escenario(Autos)
+Control = escenario(Control)
+df_indicadores = pd.concat([Autos, Control])
 #%% match de nuestros indicadores con el precio
 comparacion_autos = precios_df[precios_df.timestamp.isin(Autos.timestamp)]
 comparacion_control = precios_df[precios_df.timestamp.isin(Control.timestamp)]
+
+#%%
+## comprehension de listas para data frames
+autoscom = [precios_df.iloc[i-6:i+7] for i in comparacion_autos.index]
+controlcom = [precios_df.iloc[i-6:i+7] for i in comparacion_autos.index]
+
+
 
 
