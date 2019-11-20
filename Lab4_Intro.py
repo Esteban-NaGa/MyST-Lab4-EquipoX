@@ -7,13 +7,13 @@ Created on Thu Nov  7 08:16:17 2019
 """
 
 import pandas as pd
-#import numpy as np
-#import datetime as datetime
+import numpy as np
+import datetime as datetime
 #%%
-precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
-calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
-#precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
-#calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
+#precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
+#calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
+precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
+calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
 
 #%%
 precios_df = pd.read_csv(precios,
@@ -65,6 +65,11 @@ Autos.iloc[:,5:9]=Autos.iloc[:,5:9].astype(object).astype(float)
 
 Control['Volatility']=Control['Volatility'].astype(object).astype(int)
 Control.iloc[:,5:9]=Control.iloc[:,5:9].astype(object).astype(float)
+
+#%% Funcion de hacer los NANS a previous en caso de que no haya indicador en esa fecha.
+
+
+
 #%%
 def escenario(d):
     d["escenario"]=d["actual"]
@@ -87,7 +92,7 @@ df_indicadores_esce = pd.concat([Autos, Control])
 comparacion_autos = precios_df[precios_df.timestamp.isin(Autos.timestamp)]
 comparacion_control = precios_df[precios_df.timestamp.isin(Control.timestamp)]
 #%%
-## comprehension de listas para data frames
+## comprehension de listas para data frames con 30 mins antes del comunicado y 30 mins despues del comunicado.
 autoscom = [precios_df.iloc[i-6:i+7] for i in comparacion_autos.index]
 controlcom = [precios_df.iloc[i-6:i+7] for i in comparacion_autos.index]
 #%%
