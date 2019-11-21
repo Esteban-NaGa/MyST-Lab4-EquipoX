@@ -10,10 +10,10 @@ import pandas as pd
 import numpy as np
 import datetime as datetime
 #%%
-#precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
-#calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
-precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
-calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
+precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
+calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
+#precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
+#calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
 
 #%%
 precios_df = pd.read_csv(precios,
@@ -108,12 +108,12 @@ Control_esce['volatilidad'] = Control['actual']
 #%%
 def df_final(df, periodos):
     
-     for i in range(len(df)):
+    for i in range(len(df)):
         df['direccion'][i] = periodos[i]["close"].iloc[-1] - periodos[i]["open"].iloc[6]
         df['pips alcistas'][i] = periodos[i]["high"].iloc[6:-1].max() - periodos[i]["open"].iloc[0]
         df['pips bajistas'][i] = periodos[i]["open"].iloc[0] - periodos[i]["low"].iloc[6:-1].min()
         df['volatilidad'][i] = periodos[i]["high"].max()-periodos[i]["low"].min()
-        return df
+    return df
 #%%
 Final_autos = df_final(Autos_esce, autoscom)
 Final_control = df_final(Control_esce, controlcom)
