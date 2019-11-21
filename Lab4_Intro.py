@@ -9,11 +9,12 @@ Created on Thu Nov  7 08:16:17 2019
 import pandas as pd
 import numpy as np
 import datetime as datetime
+
 #%%
-precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
-calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
-#precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
-#calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
+#precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
+#calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
+precios = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/precios_historicos_eurusd.csv'
+calendario = '/Users/preci/Documents/iteso/semestre 9/labs trading/Lab4/MyST-Lab5-EquipoX/calendario_economico.csv'
 
 #%%
 precios_df = pd.read_csv(precios,
@@ -41,7 +42,7 @@ ce_df['timestamp'] = pd.to_datetime(ce_df['timestamp'])
 ce_df['timestamp'] = ce_df['timestamp'].dt.tz_localize('UTC')
 #ce_df.index = ce_df['timestamp'] ; ce_df = ce_df.drop('timestamp',axis=1)
 ce_df.head()
-
+ce_df.consensus.fillna(ce_df.previous, inplace= True)
 #%%
 Control = pd.DataFrame()
 Autos = pd.DataFrame()
@@ -57,6 +58,8 @@ for i in range(len(ce_df)):
 Autos = Autos.T
 Control = Control.T
 df_indicadores = pd.concat([Autos, Control])
+
+#%%
 Autos = Autos.reset_index(drop=True)
 Control = Control.reset_index(drop=True) 
 #%%
@@ -65,8 +68,6 @@ Autos.iloc[:,5:9]=Autos.iloc[:,5:9].astype(object).astype(float)
 
 Control['Volatility']=Control['Volatility'].astype(object).astype(int)
 Control.iloc[:,5:9]=Control.iloc[:,5:9].astype(object).astype(float)
-
-#%% Funcion de hacer los NANS a previous en caso de que no haya indicador en esa fecha.
 
 
 
