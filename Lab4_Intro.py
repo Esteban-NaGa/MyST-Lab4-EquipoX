@@ -10,7 +10,9 @@ import pandas as pd
 import numpy as np
 import datetime as datetime
 import plotly.graph_objs as go
-
+import plotly.express as py
+from collections import Counter
+from itertools import chain
 #%%
 #precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
 #calendario = '/Users/Esteban/Desktop/MyST_Python/calendario_economico.csv'
@@ -120,6 +122,11 @@ def df_final(df, periodos):
 Final_autos = df_final(Autos_esce, autoscom)
 Final_control = df_final(Control_esce, controlcom)
 
+#%% contamos ocurrencias por escenario
+cont_esc_autos = Final_autos['escenario'].value_counts().to_dict()
+cont_esc_control = Final_control['escenario'].value_counts().to_dict()
+
+
 #%% separar los diferentes escenarios por dataframes para contar despues
 def obtescenario(DF):
     escA=DF[DF.escenario.isin(["A"])]
@@ -133,7 +140,7 @@ Df_autos= obtescenario(Final_autos)
 Df_control= obtescenario(Final_control)
 
 #%%
-    
+
 
 
 
