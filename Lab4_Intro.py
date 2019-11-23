@@ -9,6 +9,7 @@ Created on Thu Nov  7 08:16:17 2019
 import pandas as pd
 import numpy as np
 import datetime as datetime
+import plotly.graph_objs as go
 
 #%%
 #precios = '/Users/Esteban/Desktop/MyST_Python/precios_historicos_eurusd.csv'
@@ -118,3 +119,21 @@ def df_final(df, periodos):
 #%%
 Final_autos = df_final(Autos_esce, autoscom)
 Final_control = df_final(Control_esce, controlcom)
+
+#%% separar los diferentes escenarios por dataframes para contar despues
+def obtescenario(DF):
+    escA=DF[DF.escenario.isin(["A"])]
+    escB=DF[DF.escenario.isin(["B"])]
+    escC=DF[DF.escenario.isin(["C"])]
+    escD=DF[DF.escenario.isin(["D"])]
+    return escA,escB,escC,escD
+
+
+Df_autos= obtescenario(Final_autos)
+Df_control= obtescenario(Final_control)
+
+#%%
+    
+
+
+
