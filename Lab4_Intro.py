@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 import datetime as datetime
 import plotly.graph_objs as go
-import plotly.express as py
+import chart_studio.plotly as py
 from collections import Counter
 from itertools import chain
 #%%
@@ -127,20 +127,9 @@ cont_esc_autos = Final_autos['escenario'].value_counts().to_dict()
 cont_esc_control = Final_control['escenario'].value_counts().to_dict()
 
 
-#%% separar los diferentes escenarios por dataframes para contar despues
-def obtescenario(DF):
-    escA=DF[DF.escenario.isin(["A"])]
-    escB=DF[DF.escenario.isin(["B"])]
-    escC=DF[DF.escenario.isin(["C"])]
-    escD=DF[DF.escenario.isin(["D"])]
-    return escA,escB,escC,escD
-
-
-Df_autos= obtescenario(Final_autos)
-Df_control= obtescenario(Final_control)
-
 #%%
-
-
+trace = go.Bar(x=[cont_esc_autos,cont_esc_control])
+data= [trace]
+py.iplot(data)
 
 
